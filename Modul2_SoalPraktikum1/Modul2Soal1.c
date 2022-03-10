@@ -241,7 +241,7 @@ int main(void) {
 		
 		printf("\n     [2] Bulan ke berapakah Anda lahir?\n     (masukkan dari angka 1 hingga 12) ");
 		scanf("%d", &bulanLahir);
-		printf("\n inii bulan lahir %d", bulanLahir);
+		
 		if (bulanLahir >= 0 && bulanLahir <= 12){
 			pengulangan = 1;
 		}
@@ -257,7 +257,6 @@ int main(void) {
 		printf("\n     [3] Silahkan masukkan tanggal kelahiran anda! ");
 		scanf("%d", &tanggalLahir);
 		
-		printf("\n ini tanggal lahir %d", tanggalLahir);
 		if (tahunLahir % 4 == 0){
 			if (bulanLahir == 2){
 				if (tanggalLahir >= 0 && tanggalLahir <= 28){
