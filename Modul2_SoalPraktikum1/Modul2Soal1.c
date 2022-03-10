@@ -8,7 +8,7 @@ int pengulangan;
 char zodiak[20];
 
 /*todo
-1. Buat agar user input selalu int. Jika selain itu maka akan mengulangi program
+1. [DONE] Buat agar user input sesuai. Jika selain itu maka akan mengulangi program
 2. [DONE] Buat fitur agar user bisa mengulangi program diakhir menu
 */
 
