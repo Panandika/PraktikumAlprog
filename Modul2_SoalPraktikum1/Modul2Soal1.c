@@ -6,12 +6,6 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-/* REVISI :
-1. [DONE] Buat biar validatornya bisa hapus angka
-2. Buat buar use bisa kemabli ke sub menu sebelumnya di sub menu nomor 2 dan nomor 3 (setelah input bulan pas input tanggal)
-3. Pas error isi tampilan data yang dimasukkan sebelumnya
-4. Pembatasan penggunaan fungsi itu gaboleh pake GoTo
-*/
 
 int pengulangan;
 char zodiak[20];
@@ -208,27 +202,31 @@ char* desember(int tglLahir){
 
 void judul(){
 
-	printf("\n\t\t|===========================================================|");
-	printf("\n\t\t|                                                           |");
-	printf("\n\t\t|      Selamat Datang di Aplikasi Pencari Tahu Zodiak!      |");
-    printf("\n\t\t|                                                           |");
-	printf("\n\t\t|===========================================================|\n");
+    fflush(stdin);
+    system("cls");
+    printf("\n\t\t\t------------PRAKTIKUM ALPROG MODUL 2------------");
+    printf("\n\t\t\t-------------------KELOMPOK 23------------------");
+    printf("\n\t\t\t================================================");
+    printf("\n\t\t\t           Program 3.1 Menentukan Zodiak   ");
+    printf("\n\t\t\t================================================");
 
-	printf("\n\t\tJika ingin kembali ke menu sebelumnya masukkan input 10101\n");
+	printf("\n\n\t\tJika ingin kembali ke menu sebelumnya masukkan input 10101\n");
 }
 
-int func_bulan(){
+void func_bulan(){
+    fflush(stdin);
     int pengulangan;
-
-    printf("\n\t\t[2] Bulan ke berapakah Anda lahir?");
-		printf("\n\t\t(masukkan dari angka 1 hingga 12) ");
-		bulanLahir = validatorInteger();
+    do{
+        printf("\n\t\t[2] Bulan ke berapakah Anda lahir?");
+        printf("\n\t\t(masukkan dari angka 1 hingga 12) ");
+        bulanLahir = validatorInteger();
 
         if (bulanLahir == 10101){
             system("cls");
+            bulanLahir = 0;
             main();
         }
-		if (bulanLahir >= 1 && bulanLahir <= 12){
+        if (bulanLahir >= 1 && bulanLahir <= 12){
             if (bulanLahir == 1){
                 strcpy(bulan, "Januari");
             }
@@ -265,14 +263,29 @@ int func_bulan(){
             else{
                 strcpy(bulan, "Desember");
             }
-
-            printf("\n\t\t[2.1] Bulan Kelahiran anda adalah bulan %s\n", bulan);
-			pengulangan = 1;
-    }
-    else {
-        mengulang();
-    }
+                printf("\n\t\t[2.1] Bulan Kelahiran anda adalah bulan %s\n", bulan);
+                pengulangan = 1;
+        }
+        else {
+            mengulang();
+        }
+    } while(pengulangan == 0);
 }
+
+int func_tanggal(){
+    int pengulangan;
+		printf("\n\t\t[3] Silahkan masukkan tanggal kelahiran anda! ");
+		tanggalLahir = validatorInteger();
+        if (tanggalLahir == 10101){
+            do{
+                system("cls");
+                func_bulan();
+                func_tanggal();
+            }while(pengulangan == 0);
+        }
+    return pengulangan = 1;
+}
+
 
 int validatorInteger(){
     int angka;
@@ -302,12 +315,9 @@ int mengulang(){
 }
 
 int main(void) {
-
-
-
+    fflush(stdin);
 
 	do{
-
 		judul();
 
 		printf("\n\t\t[1] Silahkan masukkan tahun kelahiran Anda!  ");
@@ -329,27 +339,14 @@ int main(void) {
 	} while(pengulangan == 0);
 
 
+    //BAGIAN BULAN
+    func_bulan();
 
+
+
+    //BAGIAN TANGGAL
 	do{
-
-        pengulangan = func_bulan();
-
-    }while(pengulangan == 0);
-
-
-
-	do{
-
-		printf("\n\t\t[3] Silahkan masukkan tanggal kelahiran anda! ");
-		tanggalLahir = validatorInteger();
-
-        if (tanggalLahir == 10101){
-            do{
-                system("cls");
-                pengulangan = func_bulan();
-
-            }while(pengulangan == 0);
-        }
+        pengulangan = func_tanggal();
 
 		if (tahunLahir % 4 == 0){
 			if (bulanLahir == 2){
@@ -362,12 +359,11 @@ int main(void) {
 			}
 		}
 		else{
+				//Mengecek apakah bulan lahir memiliki total tanggal 31 atau tidak
+				//dengan cara mengecek apakah ganjil dan apakah bulan ke 8
 
-			/*	Mengecek apakah bulan lahir memiliki total tanggal 31 atau tidak
-				dengan cara mengecek apakah ganjil dan apakah bulan ke 8
-			*/
 			if (bulanLahir == 1 || bulanLahir == 3 || bulanLahir == 5 || bulanLahir == 7 || bulanLahir == 8 || bulanLahir == 10 || bulanLahir == 12){
-				if (tanggalLahir > 0 && tanggalLahir <= 31){
+				if (tanggalLahir >= 0 && tanggalLahir <= 31){
 					pengulangan = 1;
 				}
 				else{
@@ -445,7 +441,7 @@ int main(void) {
         desember(tanggalLahir);
     }
 
-    printf("\n     Berdasarkan data tersebut, zodiak Anda adalah %s!", &zodiak);
+    printf("\n\t\tBerdasarkan data tersebut, zodiak Anda adalah %s!", &zodiak);
 
 	ulang();
 
@@ -454,7 +450,7 @@ int main(void) {
 
 void ulang(){
 	char inputUlang;
-	printf("\n     Apakah ingin mengulang kembali? (Y/T) ");
+	printf("\n\t\tApakah ingin mengulang kembali? (Y/T) ");
 
 	inputUlang = getch();
 
